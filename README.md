@@ -73,6 +73,15 @@ python NHET.py
    - La herramienta mostrará información del servidor incluyendo nombre, número de jugadores y detalles de conexión.
    - Después de una comprobación exitosa, puedes hacer clic en "Ping de Puerto CFX URL" para comenzar a hacer ping al puerto del servidor.
 
+## 🧪 Tests
+
+Instala las dependencias de desarrollo e inicia las pruebas con `pytest`:
+
+```bash
+pip install -r requirements-dev.txt
+pytest
+```
+
 ## 🤝 Contribuir
 
 ¡Las contribuciones a NetHack Elite Tools son bienvenidas! Por favor, no dudes en enviar un Pull Request.
