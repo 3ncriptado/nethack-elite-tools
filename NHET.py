@@ -259,8 +259,15 @@ class NetworkToolsApp(ctk.CTk):
             self.is_pinging = False
             self.portping_button.configure(text="Start Port Ping")
         else:
+            host = self.portping_host.get()
+            try:
+                port = int(self.portping_port.get())
+            except ValueError:
+                self.portping_result.insert("end", "Invalid port\n")
+                return
 
-                )
+            if not host:
+                self.portping_result.insert("end", "Invalid host\n")
                 return
 
             self.is_pinging = True
