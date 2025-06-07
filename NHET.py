@@ -239,6 +239,16 @@ class NetworkToolsApp(ctk.CTk):
             self.is_pinging = False
             self.portping_button.configure(text="Start Port Ping")
         else:
+            # Validate the port before starting the ping thread
+            try:
+                int(self.portping_port.get())
+            except ValueError:
+                self.portping_result.delete("0.0", "end")
+                self.portping_result.insert(
+                    "0.0", "Invalid port. Please enter a valid integer."
+                )
+                return
+
             self.is_pinging = True
             self.portping_button.configure(text="Stop Port Ping")
             self.ping_times = []
@@ -246,7 +256,17 @@ class NetworkToolsApp(ctk.CTk):
 
     def run_portping(self):
         host = self.portping_host.get()
-        port = int(self.portping_port.get())
+        try:
+            port = int(self.portping_port.get())
+        except ValueError:
+            # Invalid port provided
+            self.portping_result.delete("0.0", "end")
+            self.portping_result.insert(
+                "0.0", "Invalid port. Please enter a valid integer."
+            )
+            self.is_pinging = False
+            self.portping_button.configure(text="Start Port Ping")
+            return
         self.portping_result.delete("0.0", "end")
         try:
             ip = socket.gethostbyname(host)
