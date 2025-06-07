@@ -3,7 +3,7 @@
 [![Tests](https://img.shields.io/badge/tests-passing-brightgreen)](https://github.com/maicoldlx/nethack-elite-tools/actions)
 [![Downloads](https://img.shields.io/badge/downloads-203M-blue)](https://github.com/maicoldlx/nethack-elite-tools/releases)
 [![Version](https://img.shields.io/badge/version-v9.20.0-blue)](https://github.com/maicoldlx/nethack-elite-tools/releases/latest)
-[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+[![License](https://img.shields.io/badge/license-MIT-green)](License)
 
 NetHack Elite Tools es una aplicación de utilidades de red construida con **Python** y **CustomTkinter**. Proporciona un conjunto de herramientas para diagnóstico de redes, comprobación de servidores y obtención de información de servidores FiveM.
 
@@ -88,7 +88,7 @@ pytest
 
 ## 📄 Licencia
 
-Este proyecto está licenciado bajo la Licencia MIT - consulta el archivo [LICENSE]([LICENSE](https://github.com/maicoldlx/nethack-elite-tools/blob/main/License)) para más detalles.
+Este proyecto está licenciado bajo la Licencia MIT - consulta el archivo [License](License) para más detalles.
 
 ## 🙏 Agradecimientos
 
