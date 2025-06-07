@@ -79,7 +79,7 @@ python NHET.py
 
 ## 📄 Licencia
 
-Este proyecto está licenciado bajo la Licencia MIT - consulta el archivo [LICENSE]([LICENSE](https://github.com/maicoldlx/nethack-elite-tools/blob/main/License)) para más detalles.
+Este proyecto está licenciado bajo la Licencia MIT - consulta el archivo [License](License) para más detalles.
 
 ## 🙏 Agradecimientos
 
