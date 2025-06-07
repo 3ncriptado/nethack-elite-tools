@@ -16,6 +16,7 @@ NetHack Elite Tools es una aplicación de utilidades de red construida con **Pyt
 - **Información de Alojamiento**: Obtiene información del servidor para un host dado.
 - **Ping de Puerto**: Realiza ping continuo a un puerto específico en un host y visualiza los tiempos de respuesta.
 - **Comprobador de Servidor FiveM**: Obtiene información detallada sobre servidores FiveM utilizando su URL CFX.
+- **Detección de Sistema Operativo**: Intenta identificar el sistema operativo remoto utilizando el TTL devuelto por un ping.
 
 ## 🛠️ Instalación
 
