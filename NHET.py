@@ -8,6 +8,8 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import matplotlib.pyplot as plt
 import matplotlib
 import re
+import subprocess
+import platform
 from urllib.parse import urlparse
 matplotlib.use("TkAgg")
 
@@ -39,7 +41,8 @@ class NetworkToolsApp(ctk.CTk):
             ("Port Check", self.show_port_check),
             ("Hosting Info", self.show_hosting),
             ("Port Ping", self.show_portping),
-            ("FiveM Check", self.show_fivem_check)
+            ("FiveM Check", self.show_fivem_check),
+            ("OS Detect", self.show_os_detector)
         ]
 
         for i, (text, command) in enumerate(buttons, start=1):
@@ -63,6 +66,7 @@ class NetworkToolsApp(ctk.CTk):
         self.setup_hosting()
         self.setup_portping()
         self.setup_fivem_check()
+        self.setup_os_detector()
 
         # Mostrar frame inicial
         self.show_resolver()
@@ -91,8 +95,11 @@ class NetworkToolsApp(ctk.CTk):
     def show_fivem_check(self):
         self.show_frame(self.fivem_check_frame, "FiveM Check")
 
+    def show_os_detector(self):
+        self.show_frame(self.os_detector_frame, "OS Detect")
+
     def hide_all_frames(self):
-        for frame in [self.resolver_frame, self.port_check_frame, self.hosting_frame, self.portping_frame, self.fivem_check_frame]:
+        for frame in [self.resolver_frame, self.port_check_frame, self.hosting_frame, self.portping_frame, self.fivem_check_frame, self.os_detector_frame]:
             frame.grid_forget()
 
     def create_input_field(self, parent, placeholder):
@@ -198,6 +205,19 @@ class NetworkToolsApp(ctk.CTk):
         self.fivem_portping_button = self.create_button(self.fivem_check_frame, "Port Ping CFX URL", self.redirect_to_portping)
         self.fivem_portping_button.grid(row=3, column=0, sticky="ew", padx=20, pady=10)
         self.fivem_portping_button.configure(state="disabled")
+
+    def setup_os_detector(self):
+        self.os_detector_frame = ctk.CTkFrame(self.main_frame, fg_color="transparent")
+        self.os_detector_frame.grid_columnconfigure(0, weight=1)
+        self.os_detector_frame.grid_rowconfigure(2, weight=1)
+
+        self.os_host_entry = self.create_input_field(self.os_detector_frame, "Enter domain or IP")
+        self.os_host_entry.grid(row=0, column=0, sticky="ew", padx=20, pady=10)
+
+        self.create_button(self.os_detector_frame, "Detect OS", self.detect_os).grid(row=1, column=0, sticky="ew", padx=20, pady=10)
+
+        self.os_result = self.create_output_field(self.os_detector_frame)
+        self.os_result.grid(row=2, column=0, sticky="nsew", padx=20, pady=10)
 
     def resolve_domain(self):
         domain = self.domain_entry.get()
@@ -355,6 +375,34 @@ class NetworkToolsApp(ctk.CTk):
             self.fivem_result.delete("0.0", "end")
             self.fivem_result.insert("0.0", f"Error checking FiveM server: {str(e)}")
             self.fivem_portping_button.configure(state="disabled")
+
+    def detect_os(self):
+        host = self.os_host_entry.get()
+        param = "-n" if platform.system().lower() == "windows" else "-c"
+        try:
+            result = subprocess.run([
+                "ping",
+                param,
+                "1",
+                host
+            ], capture_output=True, text=True, timeout=5)
+            ttl_match = re.search(r"ttl[=|:](\d+)", result.stdout.lower())
+            if not ttl_match:
+                raise ValueError("TTL not found")
+            ttl = int(ttl_match.group(1))
+            if ttl >= 128:
+                os_name = "Windows"
+            elif ttl >= 64:
+                os_name = "Unix/Linux"
+            elif ttl >= 254:
+                os_name = "Networking device"
+            else:
+                os_name = "Unknown"
+            self.os_result.delete("0.0", "end")
+            self.os_result.insert("0.0", f"TTL: {ttl}\nPossible OS: {os_name}")
+        except Exception as e:
+            self.os_result.delete("0.0", "end")
+            self.os_result.insert("0.0", f"Failed to detect OS: {str(e)}")
 
     def redirect_to_portping(self):
         if self.fivem_cfx_url and self.fivem_port:
