@@ -239,14 +239,28 @@ class NetworkToolsApp(ctk.CTk):
             self.is_pinging = False
             self.portping_button.configure(text="Start Port Ping")
         else:
+            host = self.portping_host.get().strip()
+            port_input = self.portping_port.get().strip()
+            try:
+                port = int(port_input)
+                if not 1 <= port <= 65535:
+                    raise ValueError
+            except ValueError:
+                self.portping_result.delete("0.0", "end")
+                self.portping_result.insert(
+                    "0.0",
+                    "Invalid port. Please enter a number between 1 and 65535."
+                )
+                return
+
             self.is_pinging = True
             self.portping_button.configure(text="Stop Port Ping")
             self.ping_times = []
-            threading.Thread(target=self.run_portping, daemon=True).start()
+            threading.Thread(
+                target=self.run_portping, args=(host, port), daemon=True
+            ).start()
 
-    def run_portping(self):
-        host = self.portping_host.get()
-        port = int(self.portping_port.get())
+    def run_portping(self, host, port):
         self.portping_result.delete("0.0", "end")
         try:
             ip = socket.gethostbyname(host)
