@@ -3,7 +3,7 @@
 [![Tests](https://img.shields.io/badge/tests-passing-brightgreen)](https://github.com/maicoldlx/nethack-elite-tools/actions)
 [![Downloads](https://img.shields.io/badge/downloads-203M-blue)](https://github.com/maicoldlx/nethack-elite-tools/releases)
 [![Version](https://img.shields.io/badge/version-v9.20.0-blue)](https://github.com/maicoldlx/nethack-elite-tools/releases/latest)
-[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+[![License](https://img.shields.io/badge/license-MIT-green)](License)
 
 NetHack Elite Tools es una aplicación de utilidades de red construida con **Python** y **CustomTkinter**. Proporciona un conjunto de herramientas para diagnóstico de redes, comprobación de servidores y obtención de información de servidores FiveM.
 
@@ -16,6 +16,7 @@ NetHack Elite Tools es una aplicación de utilidades de red construida con **Pyt
 - **Información de Alojamiento**: Obtiene información del servidor para un host dado.
 - **Ping de Puerto**: Realiza ping continuo a un puerto específico en un host y visualiza los tiempos de respuesta.
 - **Comprobador de Servidor FiveM**: Obtiene información detallada sobre servidores FiveM utilizando su URL CFX.
+- **Detección de Sistema Operativo**: Intenta identificar el sistema operativo remoto utilizando el TTL devuelto por un ping.
 
 ## 🛠️ Instalación
 
@@ -73,13 +74,22 @@ python NHET.py
    - La herramienta mostrará información del servidor incluyendo nombre, número de jugadores y detalles de conexión.
    - Después de una comprobación exitosa, puedes hacer clic en "Ping de Puerto CFX URL" para comenzar a hacer ping al puerto del servidor.
 
+## 🧪 Tests
+
+Instala las dependencias de desarrollo e inicia las pruebas con `pytest`:
+
+```bash
+pip install -r requirements-dev.txt
+pytest
+```
+
 ## 🤝 Contribuir
 
 ¡Las contribuciones a NetHack Elite Tools son bienvenidas! Por favor, no dudes en enviar un Pull Request.
 
 ## 📄 Licencia
 
-Este proyecto está licenciado bajo la Licencia MIT - consulta el archivo [LICENSE]([LICENSE](https://github.com/maicoldlx/nethack-elite-tools/blob/main/License)) para más detalles.
+Este proyecto está licenciado bajo la Licencia MIT - consulta el archivo [License](License) para más detalles.
 
 ## 🙏 Agradecimientos
 
